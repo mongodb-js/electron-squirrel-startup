@@ -37,14 +37,17 @@ var check = function(options) {
       if(iconPath) args.push('--i=' + iconPath);
 
       run(args, app.quit);
+      options && options.onInstall && options.onInstall();
       return true;
     }
     if (cmd === '--squirrel-uninstall') {
       run(['--removeShortcut=' + target + ''], app.quit);
+      options && options.onUninstall && options.onUninstall();
       return true;
     }
     if (cmd === '--squirrel-obsolete') {
       app.quit();
+      options && options.onObsolete && options.onObsolete();
       return true;
     }
   }
