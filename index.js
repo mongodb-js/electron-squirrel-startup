@@ -11,7 +11,7 @@ var run = function(args, done) {
   }).on('close', done);
 };
 
-var check = function() {
+var check = function(options) {
   if (process.platform === 'win32') {
     var cmd = process.argv[1];
     debug('processing squirrel command `%s`', cmd);
@@ -33,4 +33,4 @@ var check = function() {
   return false;
 };
 
-module.exports = check();
+module.exports = check;
