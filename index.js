@@ -13,9 +13,15 @@ var run = function(args, done) {
 };
 
 var copyIcon = function(sourceFile) {
-  var output, targetFile;
+  var output, targetFile, targetFileName,
+    reservedName = "app.ico"; // used by Squirrel uninstall regkey. Will cause conflict if pre-exists.
   try {
-    targetFile = path.resolve(path.dirname(process.execPath), '..', 'app.ico');
+    // Build target path
+    targetFileName = path.basename(process.execPath, '.exe') + '.ico';
+    if(targetFileName.toLowerCase() == reservedName.toLowerCase()) targetFileName = '_' + targetFileName;
+    targetFile = path.resolve(path.dirname(process.execPath), '..', targetFileName);
+    
+    // Perform copy
     fs.writeFileSync(targetFile, fs.readFileSync(sourceFile));
     output = targetFile;
   } catch(err) {
