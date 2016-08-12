@@ -37,7 +37,7 @@ var check = function(options) {
       if(iconPath) args.push('--i=' + iconPath);
 
       run(args, app.quit);
-      options && options.onInstall && options.onInstall();
+      options && options.onInstall && options.onInstall(cmd === '--squirrel-install');
       return true;
     }
     if (cmd === '--squirrel-uninstall') {
