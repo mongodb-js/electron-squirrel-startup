@@ -18,7 +18,7 @@ var check = function() {
     var target = path.basename(process.execPath);
 
     if (cmd === '--squirrel-install' || cmd === '--squirrel-updated') {
-      run(['--createShortcut=' + target + ''], app.quit);
+      run(['--createShortcut=' + target + ' --updateShortcuts'], app.quit);
       return true;
     }
     if (cmd === '--squirrel-uninstall') {
