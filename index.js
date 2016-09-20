@@ -17,10 +17,16 @@ var check = function() {
     debug('processing squirrel command `%s`', cmd);
     var target = path.basename(process.execPath);
 
-    if (cmd === '--squirrel-install' || cmd === '--squirrel-updated') {
+    if (cmd === '--squirrel-install') {
+      run(['--createShortcut=' + target + ''], app.quit);
+      return true;
+    }
+
+    if (cmd === '--squirrel-updated') {
       run(['--createShortcut=' + target + ' --updateShortcuts'], app.quit);
       return true;
     }
+
     if (cmd === '--squirrel-uninstall') {
       run(['--removeShortcut=' + target + ''], app.quit);
       return true;
