@@ -23,7 +23,7 @@ var check = function() {
     }
 
     if (cmd === '--squirrel-updated') {
-      run(['--createShortcut=' + target + ' --updateShortcuts'], app.quit);
+      run(['--updateShortcut=' + target], app.quit);
       return true;
     }
 
