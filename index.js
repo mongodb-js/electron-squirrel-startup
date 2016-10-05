@@ -2,6 +2,12 @@ var path = require('path');
 var spawn = require('child_process').spawn;
 var debug = require('debug')('electron-squirrel-startup');
 var app = require('electron').app;
+var fs = require('fs');
+var os = require('os');
+
+var desktopLinkExists = function() {
+  return fs.existsSync(path.join(os.homedir(), 'desktop', 'Brave.lnk'))
+}
 
 var run = function(args, done) {
   var updateExe = path.resolve(path.dirname(process.execPath), '..', 'Update.exe');
@@ -21,12 +27,12 @@ var check = function() {
       run(['--createShortcut=' + target + ''], app.quit);
       return true;
     }
-
     if (cmd === '--squirrel-updated') {
-      run(['--updateShortcut=' + target], app.quit);
+      if (desktopLinkExists()) {
+        run(['--createShortcut=' + target + ''], app.quit);
+      }
       return true;
     }
-
     if (cmd === '--squirrel-uninstall') {
       run(['--removeShortcut=' + target + ''], app.quit);
       return true;
