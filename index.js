@@ -50,18 +50,18 @@ var check = function(options) {
         args.push('--i=' + iconPath);
       }
 
-      run(args, app.quit);
       options && options.onInstall && options.onInstall(cmd === '--squirrel-install');
+      run(args, app.quit);
       return true;
     }
     if (cmd === '--squirrel-uninstall') {
-      run(['--removeShortcut=' + target + ''], app.quit);
       options && options.onUninstall && options.onUninstall();
+      run(['--removeShortcut=' + target + ''], app.quit);
       return true;
     }
     if (cmd === '--squirrel-obsolete') {
-      app.quit();
       options && options.onObsolete && options.onObsolete();
+      app.quit();
       return true;
     }
   }
