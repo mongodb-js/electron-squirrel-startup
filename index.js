@@ -11,11 +11,11 @@ var run = function(args, done) {
   }).on('close', done);
 };
 
-var check = function() {
+var check = function(pth) {
   if (process.platform === 'win32') {
     var cmd = process.argv[1];
     debug('processing squirrel command `%s`', cmd);
-    var target = path.basename(process.execPath);
+    var target = pth || path.basename(process.execPath);
 
     if (cmd === '--squirrel-install' || cmd === '--squirrel-updated') {
       run(['--createShortcut=' + target + ''], app.quit);
