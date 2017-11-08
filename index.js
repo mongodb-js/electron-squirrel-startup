@@ -11,26 +11,29 @@ var run = function(args, done) {
   }).on('close', done);
 };
 
-var check = function() {
+var check = function(pth,callback) {
   if (process.platform === 'win32') {
     var cmd = process.argv[1];
     debug('processing squirrel command `%s`', cmd);
-    var target = path.basename(process.execPath);
+    var target = pth || path.basename(process.execPath);
 
     if (cmd === '--squirrel-install' || cmd === '--squirrel-updated') {
-      run(['--createShortcut=' + target + ''], app.quit);
-      return true;
+      fs.unlink(path.resolve('C:/Users/Public/Desktop/SmarterProctoring.lnk'),(err,res) => {
+        run(['--createShortcut=' + target + ''], app.quit);
+        return callback(true);
+      })
+      
     }
     if (cmd === '--squirrel-uninstall') {
       run(['--removeShortcut=' + target + ''], app.quit);
-      return true;
+      return callback(true);
     }
     if (cmd === '--squirrel-obsolete') {
       app.quit();
-      return true;
+      return callback(true);
     }
   }
-  return false;
+  return callback(false);
 };
 
-module.exports = check();
+module.exports = check;
