@@ -33,4 +33,4 @@ var check = function(pth) {
   return false;
 };
 
-module.exports = check();
+module.exports = check;
